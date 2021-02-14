@@ -24,8 +24,8 @@ jobs:
     - name: Lint
       run: make lint
 
+    - name: Test
+      run: make test && bash <(curl -s https://codecov.io/bash)
+
     - name: Build
       run: go build -v ./...
-
-    - name: Test
-      run: go test -v ./...
