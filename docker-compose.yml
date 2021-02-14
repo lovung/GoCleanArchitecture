@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  # app:
+  #   build:
+  #     context: ./.realize
+  #   container_name: gocleanarchitecture
+  #   volumes:
+  #     - .:/gocleanarchitecture/
+  #   working_dir: /gocleanarchitecture
+  #   environment:
+  #     - ENV
+  #     - MYSQL_HOST
+  #     - MYSQL_PORT
+  #     - LOG_LEVEL
+  #   ports:
+  #     - 10000:10000
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-file: "3"
+  #       max-size: "5m"
+  #   depends_on:
+  #     - db
+
+  # redis:
+  #   image: redis
+  #   ports:
+  #     - 16379:6379
+  #   configs:
+  #     - redis_config
+  #   volumes:
+  #     - gocleanarchitectureredis:/data
+
+  db:
+    image: mysql:8.0
+    restart: always
+    volumes:
+      - gocleanarchitecturemysql:/var/lib/mysql
+      - ./databases/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - ${MYSQL_PORT}:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_PASSWORD
+      - MYSQL_USER
+      - MYSQL_DATABASE
+    command:
+      [
+        "mysqld",
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+        "--default-authentication-plugin=mysql_native_password",
+        "--autocommit=OFF",
+      ]
+
+# configs:
+#   redis_config:
+#     file: ./.redis.conf
+
+volumes:
+  gocleanarchitecturemysql:
+    driver: local
+  # gocleanarchitectureredis:
+  #   driver: local
