@@ -20,18 +20,18 @@ func JSONWriterMiddleware(ctx *gin.Context) {
 		res      presenter.Response
 		httpCode int
 	)
-	appErr, ok := ctx.Get(presenter.ErrorContextKey)
+	appErr, ok := ctx.Get(presenter.ErrorContextKey.String())
 	if ok && appErr != nil {
 		_processAppError(&res, appErr)
 		httpCode = res.Meta.Code
 	}
 
 	// Respond the data object/array
-	data, ok := ctx.Get(presenter.DataContextKey)
+	data, ok := ctx.Get(presenter.DataContextKey.String())
 	if ok {
 		res.Data = data
 	}
-	meta, ok := ctx.Get(presenter.MetaContextKey)
+	meta, ok := ctx.Get(presenter.MetaContextKey.String())
 	if ok && meta != nil {
 		metaRes, ok1 := meta.(presenter.MetaResponse)
 		if ok1 {

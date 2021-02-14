@@ -25,7 +25,7 @@ func (mw *TransactionMiddleware) StartRequest(ctx *gin.Context) {
 
 	logger.Printf("*gorm.DB address: %p", txn)
 
-	ctx.Set(transaction.ContextKey, txn)
+	ctx.Set(transaction.ContextKey.String(), txn)
 	ctx.Next()
 }
 

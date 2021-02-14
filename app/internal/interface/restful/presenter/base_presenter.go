@@ -1,12 +1,27 @@
 package presenter
 
-import "github.com/google/go-cmp/cmp"
+import (
+	"strconv"
+
+	"github.com/google/go-cmp/cmp"
+)
+
+// Read more: https://blog.golang.org/context#TOC_3.2.
+// The key type is unexported to prevent collisions with context keys defined in
+// other packages.
+type key int
+
+func (k key) String() string {
+	return strconv.Itoa(int(k))
+}
 
 // Context key constants for responses
+// Its value of zero is arbitrary. If this package defined other context keys, they would have
+// different integer values.
 const (
-	MetaContextKey  = "meta_context_key"
-	DataContextKey  = "data_context_key"
-	ErrorContextKey = "error_context_key"
+	MetaContextKey key = iota + 1
+	DataContextKey
+	ErrorContextKey
 )
 
 // Response represents the response of every request
