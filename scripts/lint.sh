@@ -4,8 +4,6 @@ RED=`tput setaf 1`
 GRN=`tput setaf 2`
 PUR=`tput setaf 13`
 RESET=`tput sgr0`
-TEST_RESULT_DIR="${TEST_RESULTS:-./test-results}"
-mkdir -p ${TEST_RESULT_DIR}
 echo "${GRN}Listing all packages${RESET}"
 PKG_LIST+="$(go list ./... | grep -v /vendor/ | grep -v /mock | grep -v migrations) "
 for i in $PKG_LIST
