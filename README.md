@@ -1,4 +1,4 @@
-![Go](https://github.com/lovung/GoCleanArchitecture/workflows/go/badge.svg)
+![Go](https://github.com/lovung/GoCleanArchitecture/workflows/Go/badge.svg)
 ![Go Report](https://goreportcard.com/badge/github.com/lovung/GoCleanArchitecture?style=flat-square)
 [![codecov](https://codecov.io/gh/lovung/GoCleanArchitecture/branch/main/graph/badge.svg?token=QOX2GKGTA2)](https://codecov.io/gh/lovung/GoCleanArchitecture)
 

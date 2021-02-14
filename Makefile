@@ -27,3 +27,6 @@ migrateup:
 
 migratedown:
 	@migrate -source file://databases/mysql/migrations -database "mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@tcp(${MYSQL_HOST}:${MYSQL_PORT})/${MYSQL_DATABASE}?parseTime=true&charset=utf8mb4" down 1
+
+install-devtools:
+	@go get -u github.com/jstemmer/go-junit-report
