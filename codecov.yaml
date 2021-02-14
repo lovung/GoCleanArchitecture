@@ -1,5 +1,6 @@
 codecov:
   require_ci_to_pass: false
+  disable_default_path_fixes: yes
   bot: "codecov-bot"
 github_checks:
   annotations: false

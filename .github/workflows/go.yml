@@ -10,6 +10,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    env:
+      TEST_RESULTS: /tmp/test-results
     steps:
     - uses: actions/checkout@v2
 
@@ -20,14 +22,14 @@ jobs:
         
     - name: Install tools
       run: |
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.31.0
-          make install-devtools
+        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.31.0
+        make install-devtools
 
     - name: Lint
       run: make lint
 
-    - name: Test
-      run: make test && bash <(curl -s https://codecov.io/bash)
+    - name: Test and Report
+      run: make test && bash <(curl -s https://codecov.io/bash) -f $TEST_RESULTS/.testCoverage.txt -C $GITHUB_SHA -F unittests
 
     - name: Build
-      run: go build -v ./...
+      run: make build 
