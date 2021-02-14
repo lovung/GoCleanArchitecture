@@ -4,14 +4,20 @@
 package registry
 
 import (
-	"context"
+	"github.com/lovung/GoCleanArchitecture/app/internal/interface/restful/handler"
+	"github.com/lovung/GoCleanArchitecture/app/internal/interface/restful/middleware"
 
 	"github.com/google/wire"
-	"github.com/lovung/GoCleanArchitecture/app/usecase"
 )
 
-// InitializeSampleUseCase DI for use case
-func InitializeSampleUseCase(ctx context.Context) usecase.SampleUseCase {
-	wire.Build(sampleUseCaseSet)
-	return nil
+// TransactionMiddleware DI for middleware
+func TransactionMiddleware() middleware.TransactionMiddleware {
+	wire.Build(txnMwSet)
+	return middleware.TransactionMiddleware{}
+}
+
+// AuthHandler DI for handler
+func AuthHandler() handler.AuthHandler {
+	wire.Build(authHanlderSet)
+	return handler.AuthHandler{}
 }

@@ -6,19 +6,27 @@
 package registry
 
 import (
-	"context"
-	"github.com/lovung/GoCleanArchitecture/app/interface/persistence/rdbms/gorm"
-	"github.com/lovung/GoCleanArchitecture/app/usecase"
-	"github.com/lovung/GoCleanArchitecture/app/usecase/interactor"
+	"github.com/lovung/GoCleanArchitecture/app/internal/interface/persistence/rdbms/gormrepo"
+	"github.com/lovung/GoCleanArchitecture/app/internal/interface/restful/handler"
+	"github.com/lovung/GoCleanArchitecture/app/internal/interface/restful/middleware"
+	"github.com/lovung/GoCleanArchitecture/app/internal/usecase/interactor"
 	"github.com/lovung/GoCleanArchitecture/pkg/gormutil"
 )
 
 // Injectors from wire.go:
 
-// InitializeSampleUseCase DI for use case
-func InitializeSampleUseCase(ctx context.Context) usecase.SampleUseCase {
+// TransactionMiddleware DI for middleware
+func TransactionMiddleware() middleware.TransactionMiddleware {
 	db := gormutil.GetDB()
-	sampleRepository := gorm.NewSampleRepository(ctx, db)
-	sampleUseCase := interactor.NewSampleUseCase(ctx, sampleRepository)
-	return sampleUseCase
+	txnDataSQL := gormrepo.NewTxnDataSQL(db)
+	transactionMiddleware := middleware.NewTransactionMiddleware(txnDataSQL)
+	return transactionMiddleware
+}
+
+// AuthHandler DI for handler
+func AuthHandler() handler.AuthHandler {
+	userRepository := gormrepo.NewUserRepository()
+	userUseCase := interactor.NewUserUseCase(userRepository)
+	authHandler := handler.NewAuthHandler(userUseCase)
+	return authHandler
 }
