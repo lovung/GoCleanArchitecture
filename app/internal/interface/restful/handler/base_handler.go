@@ -11,15 +11,15 @@ type BaseHandler struct{}
 
 // SetMeta to put meta information into context
 func (h *BaseHandler) SetMeta(ctx *gin.Context, meta presenter.MetaResponse) {
-	ctx.Set(presenter.MetaContextKey, meta)
+	ctx.Set(presenter.MetaContextKey.String(), meta)
 }
 
 // SetData to put data information into context
 func (h *BaseHandler) SetData(ctx *gin.Context, data interface{}) {
-	ctx.Set(presenter.DataContextKey, data)
+	ctx.Set(presenter.DataContextKey.String(), data)
 }
 
 // SetError to put meta information into context
 func (h *BaseHandler) SetError(ctx *gin.Context, err error) {
-	ctx.Set(presenter.ErrorContextKey, err)
+	ctx.Set(presenter.ErrorContextKey.String(), err)
 }

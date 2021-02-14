@@ -30,6 +30,7 @@ func CorsMiddleware() gin.HandlerFunc {
 				"authorization",
 				"origin",
 				"content-type",
+				"Content-Type",
 				"accept",
 				"X-CSRF-Token",
 				"x-requested-with",
