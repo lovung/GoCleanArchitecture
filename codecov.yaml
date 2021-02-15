@@ -15,3 +15,5 @@ comment:
   require_head: yes       # [yes :: must have a head report to post]
   branches:               # branch names that can post comment
     - "main"
+fixes:
+  - "github.com/lovung/GoCleanArchitecture/::"
