@@ -17,3 +17,5 @@ comment:
     - "main"
 fixes:
   - "github.com/lovung/GoCleanArchitecture/::"
+ignore:
+  - "cmd"
