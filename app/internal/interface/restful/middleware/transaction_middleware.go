@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"github.com/lovung/GoCleanArchitecture/app/internal/interface/restful/presenter"
 	"github.com/lovung/GoCleanArchitecture/app/internal/transaction"
 	"github.com/lovung/GoCleanArchitecture/pkg/logger"
 
@@ -33,8 +34,7 @@ func (mw *TransactionMiddleware) StartRequest(ctx *gin.Context) {
 func (mw *TransactionMiddleware) EndRequest(ctx *gin.Context) {
 	ctx.Next()
 
-	logger.Debug("run EndRequest")
-	err, ok := ctx.Get("error_context_key")
+	err, ok := ctx.Get(presenter.ErrorContextKey.String())
 	if !ok {
 		mw.manager.TxnCommit(ctx)
 	}
