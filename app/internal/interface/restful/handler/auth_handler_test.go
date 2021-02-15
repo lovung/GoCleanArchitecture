@@ -89,7 +89,6 @@ func TestAuthHandler_Register(t *testing.T) {
 		// Create a response recorder so you can inspect the response
 		resp := httptest.NewRecorder()
 		r := gin.Default()
-		// ginCtx, r := gin.CreateTestContext(resp)
 		// Setup your router, just like you did in your main function, and
 		// register your routes
 		r.Use(middleware.JSONWriterMiddleware)
@@ -212,7 +211,6 @@ func TestAuthHandler_RegisterWithTransaction(t *testing.T) {
 		// Create a response recorder so you can inspect the response
 		resp := httptest.NewRecorder()
 		r := gin.Default()
-		// ginCtx, r := gin.CreateTestContext(resp)
 		// Setup your router, just like you did in your main function, and
 		// register your routes
 		r.Use(middleware.JSONWriterMiddleware)
