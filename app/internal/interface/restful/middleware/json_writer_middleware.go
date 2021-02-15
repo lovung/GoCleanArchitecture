@@ -47,9 +47,6 @@ func JSONWriterMiddleware(ctx *gin.Context) {
 }
 
 func _processAppError(res *presenter.Response, appErr interface{}) {
-	if appErr == nil {
-		return
-	}
 	bindingErr := _catchBindingError(appErr.(error))
 	if bindingErr != nil {
 		res.Errors = bindingErr.(presenter.ErrorResponses)
@@ -61,9 +58,6 @@ func _processAppError(res *presenter.Response, appErr interface{}) {
 }
 
 func _catchBindingError(appErr error) error {
-	if appErr == nil {
-		return nil
-	}
 	var errs presenter.ErrorResponses
 	if _, ok := appErr.(*validator.InvalidValidationError); ok {
 		errs.Append(presenter.ErrorResponse{

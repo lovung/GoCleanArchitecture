@@ -19,3 +19,4 @@ fixes:
   - "github.com/lovung/GoCleanArchitecture/::"
 ignore:
   - "cmd"
+  - "tmp"
