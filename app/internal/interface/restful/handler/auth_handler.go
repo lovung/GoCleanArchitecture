@@ -53,7 +53,7 @@ func (hdl *AuthHandler) Register(ctx *gin.Context) {
 	}
 
 	copier.MustCopy(&dtoReq, &req)
-	resDto, err := hdl.userUseCase.Create(ctx, dtoReq)
+	resDto, err := hdl.userUseCase.Create(ctx.Request.Context(), dtoReq)
 	if err != nil {
 		return
 	}

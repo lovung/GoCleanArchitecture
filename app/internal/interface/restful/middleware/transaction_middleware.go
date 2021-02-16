@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"github.com/lovung/GoCleanArchitecture/app/internal/interface/restful/presenter"
+	"github.com/lovung/GoCleanArchitecture/app/internal/appctx"
 	"github.com/lovung/GoCleanArchitecture/app/internal/transaction"
 	"github.com/lovung/GoCleanArchitecture/pkg/logger"
 
@@ -22,30 +22,23 @@ func NewTransactionMiddleware(manager transaction.Manager) TransactionMiddleware
 
 // StartRequest start the transaction in the beginning of a request
 func (mw *TransactionMiddleware) StartRequest(ctx *gin.Context) {
-	txn := mw.manager.TxnBegin(ctx)
-
-	logger.Printf("*gorm.DB address: %p", txn)
-
-	ctx.Set(transaction.ContextKey.String(), txn)
+	newCtx := mw.manager.TxnBegin(ctx.Request.Context())
+	ctx.Request = ctx.Request.WithContext(newCtx)
 	ctx.Next()
 }
 
 // EndRequest get error to check if need to commit or rollback
 func (mw *TransactionMiddleware) EndRequest(ctx *gin.Context) {
 	ctx.Next()
-
-	err, ok := ctx.Get(presenter.ErrorContextKey.String())
-	if !ok {
-		mw.manager.TxnCommit(ctx)
-	}
+	err := appctx.GetValue(ctx.Request.Context(), appctx.ErrorContextKey)
 	if p := recover(); p != nil {
 		logger.Error("found p and rollback ", p)
-		mw.manager.TxnRollback(ctx)
+		mw.manager.TxnRollback(ctx.Request.Context())
 	} else if err != nil {
 		logger.Debugf("found e and rollback %v", err)
-		mw.manager.TxnRollback(ctx)
+		mw.manager.TxnRollback(ctx.Request.Context())
 	} else {
-		logger.Debugf("commit transaction %p", mw.manager.GetTxn(ctx))
-		mw.manager.TxnCommit(ctx)
+		logger.Debugf("commit transaction %p", mw.manager.GetTxn(ctx.Request.Context()))
+		mw.manager.TxnCommit(ctx.Request.Context())
 	}
 }

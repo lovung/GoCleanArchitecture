@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch core",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}/cmd/services/core",
+            "env": {
+                "LOG_LEVEL": "debug",
+                "ENV": "development",
+                "MYSQL_DATABASE": "gocleanarchitecture",
+                "MYSQL_HOST": "127.0.0.1",
+                "MYSQL_PORT": 20001,
+                "MYSQL_PASSWORD": "gocleanarchitecture12345",
+                "MYSQL_ROOT_PASSWORD": "gocleanarchitecture12345",
+                "MYSQL_USER": "admin",
+                "HTTP_PORT": 20000
+            },
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
