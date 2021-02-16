@@ -3,7 +3,7 @@ package gormrepo
 import (
 	"context"
 
-	"github.com/lovung/GoCleanArchitecture/app/internal/transaction"
+	"github.com/lovung/GoCleanArchitecture/app/internal/appctx"
 
 	"gorm.io/gorm"
 )
@@ -12,7 +12,8 @@ type baseRepository struct{}
 
 // DB to get the transaction to Database from context
 func (r *baseRepository) DB(ctx context.Context) *gorm.DB {
-	gormDB, ok := ctx.Value(transaction.ContextKey).(*gorm.DB)
+	v := ctx.Value(appctx.TransactionContextKey)
+	gormDB, ok := v.(*gorm.DB)
 	if !ok {
 		panic("can not get the gorm.DB in context")
 	}

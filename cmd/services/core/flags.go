@@ -31,7 +31,7 @@ var (
 		Name:    "http_port",
 		Usage:   "Port binding to application",
 		EnvVars: []string{"HTTP_PORT"},
-		Value:   "10000",
+		Value:   "20000",
 	}
 )
 

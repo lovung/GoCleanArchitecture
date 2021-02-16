@@ -3,7 +3,8 @@ package gormrepo
 import (
 	"context"
 
-	"github.com/lovung/GoCleanArchitecture/app/internal/transaction"
+	"github.com/lovung/GoCleanArchitecture/app/internal/appctx"
+	"github.com/lovung/GoCleanArchitecture/pkg/logger"
 
 	"gorm.io/gorm"
 )
@@ -21,8 +22,10 @@ func NewTxnDataSQL(db *gorm.DB) *TxnDataSQL {
 }
 
 // TxnBegin begin a new transaction
-func (tds *TxnDataSQL) TxnBegin(ctx context.Context) interface{} {
-	return tds.db.WithContext(ctx).Begin()
+func (tds *TxnDataSQL) TxnBegin(ctx context.Context) context.Context {
+	txn := tds.db.WithContext(ctx).Begin()
+	logger.Debugf("TxnBegin - txn pointer %p", txn)
+	return appctx.SetValue(ctx, appctx.TransactionContextKey, txn)
 }
 
 // TxnRollback rollback a transaction
@@ -37,7 +40,9 @@ func (tds *TxnDataSQL) TxnCommit(ctx context.Context) (err error) {
 
 // GetTxn to get the current transaction of this service
 func (tds *TxnDataSQL) GetTxn(ctx context.Context) interface{} {
-	db, ok := ctx.Value(transaction.ContextKey).(*gorm.DB)
+	v := appctx.GetValue(ctx, appctx.TransactionContextKey)
+	logger.Debugf("GetTxn - txn pointer %p", v)
+	db, ok := v.(*gorm.DB)
 	if !ok {
 		panic("assign to *gorm.DB failed")
 	}

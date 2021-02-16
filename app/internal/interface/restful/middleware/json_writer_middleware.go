@@ -3,6 +3,7 @@ package middleware
 import (
 	"net/http"
 
+	"github.com/lovung/GoCleanArchitecture/app/internal/appctx"
 	"github.com/lovung/GoCleanArchitecture/app/internal/interface/restful/presenter"
 
 	"github.com/gin-gonic/gin"
@@ -20,19 +21,19 @@ func JSONWriterMiddleware(ctx *gin.Context) {
 		res      presenter.Response
 		httpCode int
 	)
-	appErr, ok := ctx.Get(presenter.ErrorContextKey.String())
-	if ok && appErr != nil {
+	appErr := appctx.GetValue(ctx.Request.Context(), appctx.ErrorContextKey)
+	if appErr != nil {
 		_processAppError(&res, appErr)
 		httpCode = res.Meta.Code
 	}
 
 	// Respond the data object/array
-	data, ok := ctx.Get(presenter.DataContextKey.String())
-	if ok {
+	data := appctx.GetValue(ctx.Request.Context(), appctx.DataContextKey)
+	if data != nil {
 		res.Data = data
 	}
-	meta, ok := ctx.Get(presenter.MetaContextKey.String())
-	if ok && meta != nil {
+	meta := appctx.GetValue(ctx.Request.Context(), appctx.MetaContextKey)
+	if meta != nil {
 		metaRes, ok1 := meta.(presenter.MetaResponse)
 		if ok1 {
 			res.Meta = metaRes

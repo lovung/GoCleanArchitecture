@@ -8,9 +8,9 @@ import (
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/google/go-cmp/cmp"
+	"github.com/lovung/GoCleanArchitecture/app/internal/appctx"
 	"github.com/lovung/GoCleanArchitecture/app/internal/domain/entity"
 	"github.com/lovung/GoCleanArchitecture/app/internal/pkg/tests"
-	"github.com/lovung/GoCleanArchitecture/app/internal/transaction"
 	"gorm.io/gorm"
 )
 
@@ -64,7 +64,7 @@ func TestUserRepository_Create(t *testing.T) {
 		}
 	}
 	t.Run("#1: Success", func(t *testing.T) {
-		ctx := context.WithValue(context.Background(), transaction.ContextKey, gDB)
+		ctx := context.WithValue(context.Background(), appctx.TransactionContextKey, gDB)
 		insertQuery := "INSERT INTO `users`(.*) VALUES (.*)"
 		mock.ExpectExec(insertQuery).WillReturnResult(
 			sqlmock.NewResult(1, 1),
@@ -99,7 +99,7 @@ func TestUserRepository_Create(t *testing.T) {
 		)
 	})
 	t.Run("#2: Failed when creating", func(t *testing.T) {
-		ctx := context.WithValue(context.Background(), transaction.ContextKey, gDB)
+		ctx := context.WithValue(context.Background(), appctx.TransactionContextKey, gDB)
 		insertQuery := "INSERT INTO `users`(.*) VALUES (.*)"
 		mock.ExpectExec(insertQuery).WillReturnError(gorm.ErrInvalidData)
 
@@ -119,7 +119,7 @@ func TestUserRepository_Create(t *testing.T) {
 		)
 	})
 	t.Run("#3: Failed when select again", func(t *testing.T) {
-		ctx := context.WithValue(context.Background(), transaction.ContextKey, gDB)
+		ctx := context.WithValue(context.Background(), appctx.TransactionContextKey, gDB)
 		insertQuery := "INSERT INTO `users`(.*) VALUES (.*)"
 		mock.ExpectExec(insertQuery).WillReturnResult(
 			sqlmock.NewResult(1, 1),

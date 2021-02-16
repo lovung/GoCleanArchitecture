@@ -34,10 +34,10 @@ func (m *MockManager) EXPECT() *MockManagerMockRecorder {
 }
 
 // TxnBegin mocks base method
-func (m *MockManager) TxnBegin(ctx context.Context) interface{} {
+func (m *MockManager) TxnBegin(ctx context.Context) context.Context {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TxnBegin", ctx)
-	ret0, _ := ret[0].(interface{})
+	ret0, _ := ret[0].(context.Context)
 	return ret0
 }
 
