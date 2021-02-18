@@ -4,8 +4,6 @@ import (
 	"context"
 )
 
-//go:generate mockgen -destination=./mocktrans/mock_$GOFILE -source=$GOFILE -package=mocktrans
-
 // Manager represents operations needed for transaction support.
 // It only needs to be implemented once for each database
 type Manager interface {
