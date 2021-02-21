@@ -1,4 +1,4 @@
-package gormutil
+package gormer
 
 import (
 	"sync"
