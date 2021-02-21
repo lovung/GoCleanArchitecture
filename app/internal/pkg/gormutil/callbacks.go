@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/lovung/GoCleanArchitecture/pkg/jwtutil"
-
 	"gorm.io/gorm"
 )
 

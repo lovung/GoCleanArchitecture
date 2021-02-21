@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/lovung/GoCleanArchitecture/app/config"
-	"github.com/lovung/GoCleanArchitecture/pkg/gormutil"
+	"github.com/lovung/GoCleanArchitecture/pkg/gormer"
 
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -17,7 +17,7 @@ func (s *application) initDBConnection(cfg config.MySQL) *gorm.DB {
 	if cfg.IsEnabledLog {
 		logMode = logger.Default.LogMode(logger.Info)
 	}
-	db, err := gormutil.OpenDBConnection(cfg.Conn(),
+	db, err := gormer.OpenDBConnection(cfg.Conn(),
 		gorm.Config{
 			Logger: logMode,
 		},
@@ -25,12 +25,12 @@ func (s *application) initDBConnection(cfg config.MySQL) *gorm.DB {
 	if err != nil {
 		os.Exit(1)
 	}
-	gormer, err := db.DB()
+	gormDB, err := db.DB()
 	if err != nil {
 		os.Exit(1)
 	}
-	gormer.SetMaxOpenConns(cfg.MaxOpenConns)
-	gormer.SetMaxIdleConns(cfg.MaxIdleConns)
-	gormer.SetConnMaxLifetime(time.Duration(cfg.ConnMaxLifetime) * time.Minute)
+	gormDB.SetMaxOpenConns(cfg.MaxOpenConns)
+	gormDB.SetMaxIdleConns(cfg.MaxIdleConns)
+	gormDB.SetConnMaxLifetime(time.Duration(cfg.ConnMaxLifetime) * time.Minute)
 	return db
 }

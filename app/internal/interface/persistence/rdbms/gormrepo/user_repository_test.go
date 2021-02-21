@@ -10,7 +10,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/lovung/GoCleanArchitecture/app/internal/appctx"
 	"github.com/lovung/GoCleanArchitecture/app/internal/domain/entity"
-	"github.com/lovung/GoCleanArchitecture/app/internal/pkg/tests"
+	"github.com/lovung/GoCleanArchitecture/pkg/testhelper"
 	"gorm.io/gorm"
 )
 
@@ -35,7 +35,7 @@ func TestNewUserRepository(t *testing.T) {
 }
 
 func TestUserRepository_Create(t *testing.T) {
-	gDB, mock, err := tests.OpenDBConnection()
+	gDB, mock, err := testhelper.OpenDBConnection()
 	if err != nil {
 		panic(err)
 	}
@@ -143,7 +143,7 @@ func TestUserRepository_Create(t *testing.T) {
 		)
 	})
 	t.Run("#4: [ShouldPanic] Can not found DB in context", func(t *testing.T) {
-		tests.ShouldPanic(t, func() {
+		testhelper.ShouldPanic(t, func() {
 			ctx := context.Background()
 			insertQuery := "INSERT INTO `users`(.*) VALUES (.*)"
 			mock.ExpectExec(insertQuery).WillReturnResult(

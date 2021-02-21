@@ -1,13 +1,12 @@
 package registry
 
 import (
-	"github.com/lovung/GoCleanArchitecture/pkg/gormutil"
-
 	"github.com/google/wire"
+	"github.com/lovung/GoCleanArchitecture/pkg/gormer"
 )
 
 var (
 	singletonSet = wire.NewSet(
-		gormutil.GetDB,
+		gormer.GetDB,
 	)
 )

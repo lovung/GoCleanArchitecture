@@ -103,13 +103,3 @@ func Error(i ...interface{}) {
 func Errorf(s string, i ...interface{}) {
 	singleton.Error(fmt.Sprintf(s, i...))
 }
-
-// Fatal logs as the FATAL level
-func Fatal(i ...interface{}) {
-	singleton.Fatal(fmt.Sprint(i...))
-}
-
-// Fatalf logs as the FATAL level
-func Fatalf(s string, i ...interface{}) {
-	singleton.Fatal(fmt.Sprintf(s, i...))
-}

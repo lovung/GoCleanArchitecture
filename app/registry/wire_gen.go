@@ -10,14 +10,14 @@ import (
 	"github.com/lovung/GoCleanArchitecture/app/internal/interface/restful/handler"
 	"github.com/lovung/GoCleanArchitecture/app/internal/interface/restful/middleware"
 	"github.com/lovung/GoCleanArchitecture/app/internal/usecase/interactor"
-	"github.com/lovung/GoCleanArchitecture/pkg/gormutil"
+	"github.com/lovung/GoCleanArchitecture/pkg/gormer"
 )
 
 // Injectors from wire.go:
 
 // TransactionMiddleware DI for middleware
 func TransactionMiddleware() middleware.TransactionMiddleware {
-	db := gormutil.GetDB()
+	db := gormer.GetDB()
 	txnDataSQL := gormrepo.NewTxnDataSQL(db)
 	transactionMiddleware := middleware.NewTransactionMiddleware(txnDataSQL)
 	return transactionMiddleware
