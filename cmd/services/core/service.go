@@ -56,8 +56,9 @@ func newService(ctx *cli.Context) *application {
 func (s *application) loadConfig(ctx *cli.Context) {
 	conf := &config.Config{
 		Env: ctx.String(EnvFlag.Name),
-		HTTPServer: config.ServerAddr{
-			Port: ctx.String(HTTPPortFlag.Name),
+		HTTPServer: config.ServerCfg{
+			Port:    ctx.String(HTTPPortFlag.Name),
+			Timeout: ctx.Duration(HTTPTimeoutFlag.Name),
 		},
 		MySQL: config.MySQL{
 			ConnectionString: ctx.String(MYSQLConnFlag.Name),

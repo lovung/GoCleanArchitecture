@@ -1,6 +1,8 @@
 package main
 
 import (
+	"time"
+
 	"github.com/urfave/cli/v2"
 )
 
@@ -32,6 +34,13 @@ var (
 		Usage:   "Port binding to application",
 		EnvVars: []string{"HTTP_PORT"},
 		Value:   "20000",
+	}
+
+	HTTPTimeoutFlag = &cli.DurationFlag{
+		Name:    "http_timeout",
+		Usage:   "Time out for HTTP request",
+		EnvVars: []string{"HTTP_TIMEOUT"},
+		Value:   time.Second,
 	}
 )
 

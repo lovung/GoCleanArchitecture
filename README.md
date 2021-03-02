@@ -13,7 +13,6 @@
 ├── app
 │   ├── config
 │   ├── external
-│   │   ├── adaptor
 │   │   ├── api
 │   │   └── persistence
 │   │       ├── fs
@@ -21,12 +20,14 @@
 │   │       ├── nosql
 │   │       └── rdbms
 │   ├── internal
+│   │   ├── appctx
 │   │   ├── apperror
 │   │   ├── domain
 │   │   │   ├── entity
 │   │   │   └── repository
 │   │   │       └── mockrepo
 │   │   ├── interface
+│   │   │   ├── adapter
 │   │   │   ├── grpc
 │   │   │   ├── persistence
 │   │   │   │   ├── fs
@@ -38,8 +39,9 @@
 │   │   │       ├── handler
 │   │   │       ├── middleware
 │   │   │       └── presenter
+│   │   ├── pkg
+│   │   │   └── gormutil
 │   │   ├── transaction
-│   │   │   └── mocktrans
 │   │   └── usecase
 │   │       ├── dto
 │   │       ├── interactor
@@ -59,14 +61,15 @@
 │   └── local
 ├── docs
 ├── pkg
-│   ├── config
 │   ├── copier
-│   ├── gormutil
+│   ├── gormer
 │   ├── hasher
 │   ├── jwtutil
 │   ├── logger
-│   └── storage
+│   ├── storage
+│   └── testhelper
 ├── scripts
-└── test-results
+└── tests
+    └── results
 ```
 

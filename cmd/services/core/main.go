@@ -22,6 +22,7 @@ func main() {
 		MySQLMaxIdleConnsFlag,
 		MySQLConnMaxLifetimeFlag,
 		HTTPPortFlag,
+		HTTPTimeoutFlag,
 		LogLevelFlag,
 		JWTSecretFlag,
 		EnabledProfilingFlag,

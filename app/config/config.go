@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 	"sync"
+	"time"
 )
 
 var (
@@ -58,15 +59,16 @@ func (m *MySQL) Conn() string {
 		m.User, m.Password, m.Host, m.Port, m.DB)
 }
 
-// ServerAddr server addresses
-type ServerAddr struct {
-	Port string
+// ServerCfg server addresses
+type ServerCfg struct {
+	Port    string
+	Timeout time.Duration
 }
 
 // Config  is APP config information
 type Config struct {
 	Env              string
-	HTTPServer       ServerAddr
+	HTTPServer       ServerCfg
 	MySQL            MySQL
 	LogLevel         string
 	JWTSecret        string
