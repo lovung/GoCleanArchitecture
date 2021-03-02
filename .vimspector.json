@@ -9,7 +9,8 @@
             "cwd": "${workspaceRoot}",
             "dlvToolPath": "$HOME/go/bin/dlv",
             "env": {
-               "log_level": "debug"
+               "log_level": "debug",
+               "HTTP_TIMEOUT": "3s"
             },
             "mode": "debug",
             "name": "Launch core",

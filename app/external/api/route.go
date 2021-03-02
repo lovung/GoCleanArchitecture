@@ -46,6 +46,7 @@ func Restful(cfg *config.Config) *gin.Engine {
 	if cfg.Env != envProduction && cfg.Env != envStaging {
 		router.Use(middleware.CorsMiddleware())
 	}
+	router.Use(middleware.AddTimeout)
 	router.GET("/", root)
 	router.GET("/api/healthz", healthz)
 	router.Use(middleware.JSONWriterMiddleware)
